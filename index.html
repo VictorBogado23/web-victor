@@ -431,8 +431,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <form id="contactForm">
       <div class="frow">
         <div class="field"><label for="f-nombre">Nombre</label><input type="text" id="f-nombre" name="nombre" required></div>
-        <div class="field"><label for="f-empresa">Empresa</label><input type="text" id="f-empresa" name="empresa"></div>
+        <div class="field"><label for="f-apellido">Apellido</label><input type="text" id="f-apellido" name="apellido" required></div>
       </div>
+      <div class="field"><label for="f-empresa">Empresa</label><input type="text" id="f-empresa" name="empresa"></div>
       <div class="field"><label for="f-email">Email</label><input type="email" id="f-email" name="email" required></div>
       <div class="frow">
         <div class="field">
@@ -532,6 +533,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     var payload = {
       nombre:  form.nombre.value.trim(),
+      apellido: form.apellido.value.trim(),
       empresa: form.empresa.value.trim(),
       email:   form.email.value.trim(),
       pais:    pais,
@@ -540,7 +542,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       telefono_e164: phoneE164,
       mensaje: form.mensaje.value.trim(),
       consentimiento: 'si',
-      _subject: 'Consulta web · ' + (form.nombre.value.trim() || 'sin nombre')
+      _subject: 'Consulta web · ' + ((form.nombre.value.trim()+' '+form.apellido.value.trim()).trim() || 'sin nombre')
     };
 
     btn.disabled = true;
@@ -559,8 +561,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           form_name: 'contacto_web',
           form_data: {
             nombre:  payload.nombre,
+            apellido: payload.apellido,
             email:   payload.email,       // texto plano; GTM/plataforma hace el hasheo
-            phone_e164: payload.telefono_e164,
+            phone: payload.telefono_e164,
             country: payload.pais,
             empresa: payload.empresa
           }
