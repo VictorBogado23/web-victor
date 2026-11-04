@@ -1,5 +1,13 @@
 [
  {
+  "slug": "que-es-ai-mode-google",
+  "titulo": "Qué es el AI Mode de Google y qué significa para tus anuncios",
+  "descripcion": "Qué es el AI Mode de Google, cómo funciona con la técnica de query fan-out y qué cambia para tus campañas de Google Ads y tu medición server-side.",
+  "categoria": "Google Ads",
+  "fecha": "2026-11-04",
+  "minutos": 5
+ },
+ {
   "slug": "google-ads-2026-11-04",
   "titulo": "Novedades de Google Ads: anuncios en AI Mode globales y API v26.1",
   "descripcion": "Google lleva los anuncios en AI Mode a 10 paises nuevos y estrena multiturn ads; la API v26.1 habilita exclusiones por ingresos del hogar en Performance Max.",
