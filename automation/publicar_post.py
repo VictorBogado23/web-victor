@@ -21,7 +21,7 @@ Uso en el workbench de Composio (donde existe run_composio_tool):
 
 publicar(..., dry_run=True) arma todo sin commitear y devuelve los archivos generados.
 """
-import base64, html, json, re
+import base64, html, io, json, re, glob
 
 OWNER, REPO, BRANCH = "VictorBogado23", "web-victor", "main"
 WEB = "victorbogado-web"           # carpeta que publica Cloudflare Pages
@@ -92,7 +92,111 @@ LOGO = ('<svg viewBox="0 0 120 120" width="{w}" height="{w}" xmlns="http://www.w
         '<text x="60" y="63" text-anchor="middle" dominant-baseline="central" font-family="Sora,Arial,sans-serif" '
         'font-weight="600" font-size="52" letter-spacing="-2" fill="#fff">VB</text></svg>')
 
-def pagina(titulo, descripcion, url, og_type, jsonld, cuerpo):
+# ---------------------------------------------------------------- imagen og:image por post
+
+def _fuente(bold=True):
+    patrones = ["*ejavuSans-Bold*.ttf"] if bold else ["*ejavuSans.ttf"]
+    for pat in patrones:
+        hits = glob.glob("/usr/share/fonts/**/%s" % pat, recursive=True)
+        if hits:
+            return hits[0]
+    hits = glob.glob("/usr/share/fonts/**/*.ttf", recursive=True)
+    return hits[0] if hits else None
+
+def _envolver(draw, texto, fuente, ancho_max):
+    palabras, lineas, actual = texto.split(), [], ""
+    for w in palabras:
+        prueba = (actual + " " + w).strip()
+        if draw.textlength(prueba, font=fuente) <= ancho_max:
+            actual = prueba
+        else:
+            if actual:
+                lineas.append(actual)
+            actual = w
+    if actual:
+        lineas.append(actual)
+    return lineas
+
+def generar_og(titulo, categoria):
+    """Genera el og:image 1200x630 de un post con el lenguaje visual del sitio
+    (fondo navy, badge VB con gradiente azul-cian, titulo del post). Devuelve bytes
+    PNG, o None si Pillow/las fuentes no estan disponibles (no bloquea la publicacion:
+    el post se publica igual con el og.png generico del sitio)."""
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except ImportError:
+        return None
+    fb, fr = _fuente(True), _fuente(False)
+    if not fb or not fr:
+        return None
+    W, H = 1200, 630
+    img = Image.new("RGB", (W, H), (10, 22, 40))
+    for r, alpha in [(520, 18), (380, 26), (260, 34)]:
+        glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        gd = ImageDraw.Draw(glow)
+        cx, cy = W - 120, 80
+        gd.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(6, 182, 212, alpha))
+        img = Image.alpha_composite(img.convert("RGBA"), glow).convert("RGB")
+    draw = ImageDraw.Draw(img, "RGBA")
+
+    bs = 56
+    badge = Image.new("RGBA", (bs, bs), (0, 0, 0, 0))
+    px = badge.load()
+    c1, c2 = (0x1E, 0x4F, 0xD8), (0x06, 0xB6, 0xD4)
+    for y in range(bs):
+        for x in range(bs):
+            t = (x + y) / (2 * (bs - 1))
+            px[x, y] = (int(c1[0] + (c2[0] - c1[0]) * t), int(c1[1] + (c2[1] - c1[1]) * t),
+                        int(c1[2] + (c2[2] - c1[2]) * t), 255)
+    mascara = Image.new("L", (bs, bs), 0)
+    ImageDraw.Draw(mascara).rounded_rectangle([0, 0, bs - 1, bs - 1], radius=13, fill=255)
+    badge.putalpha(mascara)
+    img.paste(badge, (72, 64), badge)
+    draw = ImageDraw.Draw(img, "RGBA")
+    f_vb = ImageFont.truetype(fb, 24)
+    bbox = draw.textbbox((0, 0), "VB", font=f_vb)
+    tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    draw.text((72 + bs / 2 - tw / 2 - bbox[0], 64 + bs / 2 - th / 2 - bbox[1]), "VB", font=f_vb, fill=(255, 255, 255, 255))
+
+    draw.text((144, 70), "Victor Bogado", font=ImageFont.truetype(fb, 24), fill=(255, 255, 255, 255))
+    draw.text((144, 102), "BLOG \u00b7 TRACKING Y GOOGLE ADS", font=ImageFont.truetype(fr, 15), fill=(140, 160, 190, 255))
+
+    f_pill = ImageFont.truetype(fb, 17)
+    ptxt = categoria.upper()
+    pad_x, pad_y = 18, 10
+    pbbox = draw.textbbox((0, 0), ptxt, font=f_pill)
+    pw, ph = pbbox[2] - pbbox[0], pbbox[3] - pbbox[1]
+    px0, py0 = 72, 170
+    draw.rounded_rectangle([px0, py0, px0 + pw + pad_x * 2, py0 + ph + pad_y * 2],
+                            radius=(ph + pad_y * 2) // 2, outline=(6, 182, 212, 200), width=2, fill=(6, 182, 212, 30))
+    draw.text((px0 + pad_x - pbbox[0], py0 + pad_y - pbbox[1]), ptxt, font=f_pill, fill=(100, 220, 235, 255))
+
+    f_tit = ImageFont.truetype(fb, 58)
+    ty = 250
+    for linea in _envolver(draw, titulo, f_tit, W - 144)[:4]:
+        draw.text((72, ty), linea, font=f_tit, fill=(255, 255, 255, 255))
+        ty += 70
+
+    f_dom = ImageFont.truetype(fr, 20)
+    dtxt = "victorbogado.cloud"
+    dbbox = draw.textbbox((0, 0), dtxt, font=f_dom)
+    draw.text((W - 72 - (dbbox[2] - dbbox[0]), H - 72), dtxt, font=f_dom, fill=(150, 170, 200, 255))
+
+    buf = io.BytesIO()
+    img.save(buf, format="PNG", optimize=True)
+    return buf.getvalue()
+
+def commitear_binario(path, data_bytes, mensaje):
+    content_b64 = base64.b64encode(data_bytes).decode()
+    res, err = run_composio_tool("GITHUB_CREATE_OR_UPDATE_FILE_CONTENTS", {
+        "owner": OWNER, "repo": REPO, "path": path, "message": mensaje, "content": content_b64,
+    })
+    if err:
+        raise RuntimeError("Fall\u00f3 el commit de %s: %s" % (path, err))
+    data = (_unwrap(res) or {}).get("data", {})
+    return (data.get("content") or {}).get("html_url", "")
+
+def pagina(titulo, descripcion, url, og_type, jsonld, cuerpo, imagen_og=None):
     return """<!DOCTYPE html>
 <html lang="es-AR">
 <head>
@@ -116,7 +220,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:url" content="%(u)s">
 <meta property="og:title" content="%(t)s">
 <meta property="og:description" content="%(d)s">
-<meta property="og:image" content="%(site)s/assets/og.png">
+<meta property="og:image" content="%(img)s">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -185,6 +289,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </body>
 </html>
 """ % {"t": esc(titulo), "d": esc(descripcion), "u": url, "og": og_type, "site": SITE,
+       "img": imagen_og or (SITE + "/assets/og.png"),
        "ld": json.dumps(jsonld, ensure_ascii=False, indent=1).replace("</", "<\\/"),
        "logo_nav": LOGO.format(w=40, id="lg-nav"), "logo_foot": LOGO.format(w=34, id="lg-foot"),
        "cuerpo": cuerpo, "anio": "2026"}
@@ -193,13 +298,14 @@ AUTOR = {"@type": "Person", "name": "Victor Bogado", "url": SITE + "/"}
 
 # ---------------------------------------------------------------- páginas
 
-def html_post(p, otros):
+def html_post(p, otros, imagen_url=None):
     url = "%s/blog/%s/" % (SITE, p["slug"])
+    img_url = imagen_url or (SITE + "/assets/og.png")
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "BlogPosting", "headline": p["titulo"], "description": p["descripcion"],
          "datePublished": p["fecha"], "dateModified": p["fecha"], "inLanguage": "es-AR",
          "articleSection": p["categoria"], "mainEntityOfPage": url, "url": url,
-         "image": SITE + "/assets/og.png", "author": AUTOR,
+         "image": img_url, "author": AUTOR,
          "publisher": {"@type": "Person", "name": "Victor Bogado"}},
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Inicio", "item": SITE + "/"},
@@ -229,7 +335,7 @@ def html_post(p, otros):
 </article></div></section>
 %(rel)s""" % {"cat": esc(p["categoria"]), "t": esc(p["titulo"]), "d": esc(p["descripcion"]), "f": p["fecha"],
              "fl": fecha_legible(p["fecha"]), "min": p.get("minutos", 1), "c": p["contenido_html"], "rel": rel}
-    return pagina(titulo_seo(p["titulo"]), p["descripcion"], url, "article", ld, cuerpo).replace(
+    return pagina(titulo_seo(p["titulo"]), p["descripcion"], url, "article", ld, cuerpo, imagen_og=img_url).replace(
         '<a href="/blog/" aria-current="page">Blog</a>', '<a href="/blog/">Blog</a>', 1)
 
 def html_blog(posts):
@@ -313,17 +419,24 @@ def armar(p, posts_previos):
 def publicar(post, dry_run=False):
     previos = json.loads(leer(MANIFEST) or "[]")
     p, posts, otros = armar(post, previos)
+    og_bytes = generar_og(p["titulo"], p["categoria"])
+    img_url = ("%s/blog/%s/og.png" % (SITE, p["slug"])) if og_bytes else None
     archivos = {
-        "%s/blog/%s/index.html" % (WEB, p["slug"]): html_post(p, otros),
+        "%s/blog/%s/index.html" % (WEB, p["slug"]): html_post(p, otros, imagen_url=img_url),
         WEB + "/blog/index.html": html_blog(posts),
         MANIFEST: json.dumps(posts, ensure_ascii=False, indent=1) + "\n",
         SITEMAP: sitemap_actualizado(leer(SITEMAP), posts),
     }
     url = "%s/blog/%s/" % (SITE, p["slug"])
     if dry_run:
-        return {"ok": True, "dry_run": True, "url": url, "archivos": archivos}
+        return {"ok": True, "dry_run": True, "url": url, "archivos": archivos,
+                "og_image_bytes": len(og_bytes) if og_bytes else 0}
+    img_commit_url = None
+    if og_bytes:
+        img_commit_url = commitear_binario(
+            "%s/blog/%s/og.png" % (WEB, p["slug"]), og_bytes, "Blog: og:image de %s" % p["titulo"])
     commit_url = commitear(archivos, "Blog: %s" % p["titulo"])
-    return {"ok": True, "url": url, "commit_url": commit_url}
+    return {"ok": True, "url": url, "commit_url": commit_url, "og_image_commit_url": img_commit_url}
 
 def reconstruir_indice(dry_run=False):
     """Regenera /blog/ y el sitemap desde posts.json (sin publicar un post nuevo)"""
