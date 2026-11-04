@@ -81,6 +81,11 @@ def minutos_lectura(contenido):
     palabras = len(re.sub(r"<[^>]+>", " ", contenido).split())
     return max(1, round(palabras / 200))
 
+def titulo_seo(titulo, sufijo=" · Blog de Victor Bogado", limite=60):
+    """Agrega el sufijo de marca sólo si entra dentro del límite recomendado
+    para el <title> (si no, se corta en los resultados de Google)."""
+    return titulo + sufijo if len(titulo) + len(sufijo) <= limite else titulo
+
 LOGO = ('<svg viewBox="0 0 120 120" width="{w}" height="{w}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
         '<defs><linearGradient id="{id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1E4FD8"/>'
         '<stop offset="1" stop-color="#06B6D4"/></linearGradient></defs><rect width="120" height="120" rx="28" fill="url(#{id})"/>'
@@ -222,7 +227,7 @@ def html_post(p, otros):
 </article></div></section>
 %(rel)s""" % {"cat": esc(p["categoria"]), "t": esc(p["titulo"]), "d": esc(p["descripcion"]), "f": p["fecha"],
              "fl": fecha_legible(p["fecha"]), "min": p.get("minutos", 1), "c": p["contenido_html"], "rel": rel}
-    return pagina(p["titulo"] + " · Blog de Victor Bogado", p["descripcion"], url, "article", ld, cuerpo).replace(
+    return pagina(titulo_seo(p["titulo"]), p["descripcion"], url, "article", ld, cuerpo).replace(
         '<a href="/blog/" aria-current="page">Blog</a>', '<a href="/blog/">Blog</a>', 1)
 
 def html_blog(posts):
@@ -319,7 +324,7 @@ def publicar(post, dry_run=False):
     return {"ok": True, "url": url, "commit_url": commit_url}
 
 def reconstruir_indice(dry_run=False):
-    """Regenera /blog/ y el sitemap desde posts.json (sin publicar un post nuevo)."""
+    """Regenera /blog/ y el sitemap desde posts.json (sin publicar un post nuevo)"""
     posts = json.loads(leer(MANIFEST) or "[]")
     archivos = {WEB + "/blog/index.html": html_blog(posts),
                 MANIFEST: json.dumps(posts, ensure_ascii=False, indent=1) + "\n",
