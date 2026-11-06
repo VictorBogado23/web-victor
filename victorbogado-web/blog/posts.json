@@ -1,5 +1,13 @@
 [
  {
+  "slug": "analytics-2026-11-06",
+  "titulo": "Novedades de Analytics y GTM: IP en server-side y GA4 con IA",
+  "descripcion": "Desde enero de 2027, el server-side GTM pasará la IP completa a los tags de Google Ads. Además, GA4 se conecta con IA vía MCP y Safari aprieta las cookies.",
+  "categoria": "Analytics y GTM",
+  "fecha": "2026-11-06",
+  "minutos": 4
+ },
+ {
   "slug": "que-es-ai-mode-google",
   "titulo": "Qué es el AI Mode de Google y qué significa para tus anuncios",
   "descripcion": "Qué es el AI Mode de Google, cómo funciona con la técnica de query fan-out y qué cambia para tus campañas de Google Ads y tu medición server-side.",
