@@ -205,6 +205,14 @@ def pagina(titulo, descripcion, url, og_type, jsonld, cuerpo, imagen_og=None):
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://elemental.victorbogado.cloud/7hykymxot.js?"+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','l=HQtFKi0mVF0%%2BW0FaKDgtTgJSSkNITR0GSRkRDg0ECwobCBkJFkUaBBsaHA%%3D%%3D');</script>
 <!-- End Google Tag Manager -->
+<!-- Google Tag Manager (GTM-5NWBD8WC) -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5NWBD8WC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<!-- End Google Tag Manager (GTM-5NWBD8WC) -->
 <title>%(t)s</title>
 <meta name="description" content="%(d)s">
 <link rel="canonical" href="%(u)s">
