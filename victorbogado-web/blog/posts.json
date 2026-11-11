@@ -1,5 +1,13 @@
 [
  {
+  "slug": "google-ads-2026-11-11",
+  "titulo": "Novedades de Google Ads: Demand Gen y anuncios en AI Mode",
+  "descripcion": "Esta semana en Google Ads: cambio de API en Demand Gen desde el 1/12, nuevos terminos pay-per-lead y anuncios multiturno en AI Mode. Que hacer en cada caso.",
+  "categoria": "Google Ads",
+  "fecha": "2026-11-11",
+  "minutos": 5
+ },
+ {
   "slug": "analytics-2026-11-06",
   "titulo": "Novedades de Analytics y GTM: IP en server-side y GA4 con IA",
   "descripcion": "Desde enero de 2027, el server-side GTM pasará la IP completa a los tags de Google Ads. Además, GA4 se conecta con IA vía MCP y Safari aprieta las cookies.",
