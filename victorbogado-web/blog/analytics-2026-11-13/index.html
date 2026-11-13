@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://elemental.victorbogado.cloud/7hykymxot.js?"+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','l=HQtFKi0mVF0%2BW0FaKDgtTgJSSkNITR0GSRkRDg0ECwobCBkJFkUaBBsaHA%3D%3D');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager (GTM-5NWBD8WC) -->
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5NWBD8WC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<!-- End Google Tag Manager (GTM-5NWBD8WC) -->
+<title>Novedades de Analytics y GTM: nuevo snippet y Data Manager en GA4</title>
+<meta name="description" content="Cambió el snippet por defecto de GTM, GA4 estrena Data Manager y métricas server-to-server, y el MCP de Analytics llega a la versión 1.0. Qué cambia y qué hacer.">
+<link rel="canonical" href="https://victorbogado.cloud/blog/analytics-2026-11-13/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Victor Bogado">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Victor Bogado">
+<meta property="og:locale" content="es_AR">
+<meta property="og:url" content="https://victorbogado.cloud/blog/analytics-2026-11-13/">
+<meta property="og:title" content="Novedades de Analytics y GTM: nuevo snippet y Data Manager en GA4">
+<meta property="og:description" content="Cambió el snippet por defecto de GTM, GA4 estrena Data Manager y métricas server-to-server, y el MCP de Analytics llega a la versión 1.0. Qué cambia y qué hacer.">
+<meta property="og:image" content="https://victorbogado.cloud/blog/analytics-2026-11-13/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0A1628">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/favicon-180.png">
+<link rel="alternate" type="application/feed+json" title="Blog de Victor Bogado" href="/blog/posts.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+<script>try{var t=localStorage.getItem('vb-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "headline": "Novedades de Analytics y GTM: nuevo snippet y Data Manager en GA4",
+   "description": "Cambió el snippet por defecto de GTM, GA4 estrena Data Manager y métricas server-to-server, y el MCP de Analytics llega a la versión 1.0. Qué cambia y qué hacer.",
+   "datePublished": "2026-11-13",
+   "dateModified": "2026-11-13",
+   "inLanguage": "es-AR",
+   "articleSection": "Analytics y GTM",
+   "mainEntityOfPage": "https://victorbogado.cloud/blog/analytics-2026-11-13/",
+   "url": "https://victorbogado.cloud/blog/analytics-2026-11-13/",
+   "image": "https://victorbogado.cloud/blog/analytics-2026-11-13/og.png",
+   "author": {
+    "@type": "Person",
+    "name": "Victor Bogado",
+    "url": "https://victorbogado.cloud/"
+   },
+   "publisher": {
+    "@type": "Person",
+    "name": "Victor Bogado"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Inicio",
+     "item": "https://victorbogado.cloud/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Blog",
+     "item": "https://victorbogado.cloud/blog/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Novedades de Analytics y GTM: nuevo snippet y Data Manager en GA4",
+     "item": "https://victorbogado.cloud/blog/analytics-2026-11-13/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://elemental.victorbogado.cloud/ns.html?id=GTM-5J497QST" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<a class="skip" href="#main">Saltar al contenido</a>
+<nav class="nav" aria-label="Principal">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Victor Bogado, inicio"><svg viewBox="0 0 120 120" width="40" height="40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="lg-nav" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1E4FD8"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs><rect width="120" height="120" rx="28" fill="url(#lg-nav)"/><text x="60" y="63" text-anchor="middle" dominant-baseline="central" font-family="Sora,Arial,sans-serif" font-weight="600" font-size="52" letter-spacing="-2" fill="#fff">VB</text></svg>
+      <span><span class="nm">Victor Bogado</span><span class="rl">TRACKING · GOOGLE ADS</span></span></a>
+    <div class="nav-links" id="navLinks"><a href="/gtm-server-side/">GTM Server-Side</a><a href="/stape/">Stape</a><a href="/api-conversiones-meta/">Meta CAPI</a><a href="/google-ads/">Google Ads</a><a href="/google-analytics-4/">GA4</a><a href="/blog/">Blog</a><a href="/contacto/" class="nav-cta">Contactar</a></div>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Cambiar tema claro u oscuro">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<main id="main">
+<header class="page-hero post-hero">
+  <div class="wrap">
+    <div>
+      <p class="crumbs"><a href="/">Inicio</a><span aria-hidden="true">/</span><a href="/blog/">Blog</a><span aria-hidden="true">/</span><span>Analytics y GTM</span></p>
+      <p class="eyebrow">Analytics y GTM · Novedades semanales</p>
+      <h1>Novedades de Analytics y GTM: nuevo snippet y Data Manager en GA4</h1>
+      <p class="lead">Cambió el snippet por defecto de GTM, GA4 estrena Data Manager y métricas server-to-server, y el MCP de Analytics llega a la versión 1.0. Qué cambia y qué hacer.</p>
+      <p class="post-meta"><time datetime="2026-11-13">13 de noviembre de 2026</time><span aria-hidden="true">·</span><span>7 min de lectura</span><span aria-hidden="true">·</span><span>Por Victor Bogado</span></p>
+    </div>
+  </div>
+</header>
+<section class="alt"><div class="wrap"><article class="prose post-body">
+<p>Semana movida en el mundo de la medición: Google cambió el snippet por defecto de Tag Manager, sumó un nuevo <strong>Data Manager</strong> dentro de Google Analytics y liberó cuatro métricas nuevas para tracking server-to-server. Además, el servidor MCP oficial de Analytics llegó a su versión 1.0 y aparece en el radar un cambio importante en cómo el server-side GTM maneja las direcciones IP. Te lo resumo con foco en qué tenés que revisar.</p>
+
+<h2>🚨 Lo más importante</h2>
+
+<h3>Cambió el snippet por defecto de Google Tag Manager</h3>
+<p>Google actualizó el código de instalación que entrega por defecto para los contenedores de GTM. El snippet nuevo carga el contenedor con un <code>&lt;script&gt;</code> común y usa un comando <code>gtag</code>, en lugar del clásico <code>gtm.js</code> con el push al dataLayer que venimos pegando desde hace años.</p>
+<p>El punto fino es este: si tu sitio usa un dataLayer con nombre personalizado (algo muy habitual en implementaciones prolijas o headless), ahora hay que pasarle ese nombre con el parámetro <code>&amp;l</code>. Si no, el contenedor puede quedar leyendo un dataLayer que no es el tuyo y romper eventos silenciosamente. No es un cambio que rompa las instalaciones existentes, pero sí cambia lo que vas a copiar en los sitios nuevos.</p>
+<div class="accion"><p><strong>Qué hacer:</strong> Antes de instalar GTM en un sitio nuevo, fijate qué snippet te está dando el panel. Si trabajás con un dataLayer renombrado, confirmá que el parámetro <code>&amp;l</code> apunte al nombre correcto. En sitios ya andando no toques nada por ahora, pero tenelo presente para auditorías.</p></div>
+<p class="fuentes">Fuente: <a href="https://digitalanalyticspills.substack.com/p/dap-045-new-gtm-snippet-ga4-keyed">Digital Analytics Pills</a></p>
+
+<h3>Google Analytics estrena Data Manager (beta)</h3>
+<p>El 6 de noviembre Google sumó un <strong>Data Manager</strong> en beta dentro de Google Analytics. Es un hub en el área de administración para gestionar vínculos de productos, data streams e importaciones de datos de origen propio, con un mapa de conexiones que muestra la propiedad en el centro, las fuentes a la izquierda y los destinos a la derecha. Las conexiones con problemas aparecen con un indicador de estado y un botón de "Fix".</p>
+<p>La lógica que propone Google es que las conexiones nuevas se armen desde acá, dentro de Analytics, y que los datos bajen hacia Google Ads y Google Marketing Platform, no al revés. Las conexiones existentes de Ads y GMP pueden quedarse donde están. Ojo con una advertencia que hace el propio Google: activar el mismo pipeline en Analytics y en Ads a la vez puede <strong>duplicar conversiones</strong>.</p>
+<div class="accion"><p><strong>Qué hacer:</strong> Entrá al Admin de tus propiedades y revisá si ya te aparece Data Manager bajo "My preferences". Antes de migrar conexiones, mapeá qué pipelines ya tenés activos en Ads para no terminar contando conversiones dos veces. Por ahora las subpropiedades y roll-up no lo soportan, así que no te apures en esos casos.</p></div>
+<p class="fuentes">Fuente: <a href="https://www.relevantaudience.com/analytics/google-analytics-data-manager-beta-data-connection-map/">Relevant Audience</a></p>
+
+<h2>☁️ Stape y server-side</h2>
+
+<h3>El server-side GTM va a dejar pasar la IP completa a los tags de Google Ads</h3>
+<p>Esta rompió justo antes de la ventana de la semana (primeros días de noviembre), pero la pongo acá porque tiene fecha de activación cercana y nos toca de lleno a los que trabajamos server-side. Google avisó que el contenedor server-side deja de redactar la IP a nivel de todo el contenedor y pasa a un manejo <strong>por tag</strong>: los tags de Google Ads, Display &amp; Video 360, Search Ads 360 y Campaign Manager 360 van a poder recibir la dirección IP completa. Los tags de Google Analytics la van a seguir redactando, y los de terceros deciden por su cuenta.</p>
+<p>El cambio arranca el <strong>11 de enero de 2027</strong> y viene activado por defecto. Hay forma de optar por no compartir la IP completa, ya sea con un opt-out o construyendo una transformación que la quite antes de que el tag la lea. La IP suele ser dato personal bajo la normativa europea, así que esto no es un detalle menor para cualquiera que mida tráfico de la UE, UK o Suiza.</p>
+<div class="accion"><p><strong>Qué hacer:</strong> Audita tus contenedores server-side e identificá qué tags mandan datos a esos cuatro productos de Google Ads. Decidí antes de enero si querés mantener el nivel actual de anonimización (con transformación o opt-out) o si estás cómodo compartiendo la IP completa, y dejalo documentado. Revisá que las notificaciones y el consentimiento estén en regla antes de que empiece la recolección.</p></div>
+<p class="fuentes">Fuente: <a href="https://seroundtable.com/google-tag-manager-full-ip-address-42453.html">Search Engine Roundtable</a> · <a href="https://ppc.land/google-ad-tags-gain-full-visitor-ip-addresses-in-server-side-gtm-in-2027/">PPC Land</a></p>
+
+<h2>📈 GA4</h2>
+
+<h3>Cuatro métricas nuevas para eventos server-to-server con clave</h3>
+<p>GA4 documentó cuatro métricas nuevas pensadas para eventos keyed server-to-server: <strong>keyed S2S events, active users, sessions y engaged sessions</strong>. Aplican cuando mandás eventos por Measurement Protocol o integraciones de backend que incluyen una clave como <code>transaction_id</code>, y ya están disponibles en la Data API y en Looker Studio.</p>
+<p>El detalle importante: si tu implementación es solo <code>gtag.js</code> del lado del cliente, estas métricas van a marcar cero. Son útiles justamente para separar y medir lo que entra por el canal server-to-server, algo cada vez más común en setups de server-side serios.</p>
+<div class="accion"><p><strong>Qué hacer:</strong> Si mandás eventos por Measurement Protocol con una clave, sumá estas métricas a tus reportes de Looker Studio para auditar que el canal server-side esté llegando. Si te aparecen en cero y esperabas datos, revisá que estés enviando la clave correctamente.</p></div>
+<p class="fuentes">Fuente: <a href="https://digitalanalyticspills.substack.com/p/dap-045-new-gtm-snippet-ga4-keyed">Digital Analytics Pills</a></p>
+
+<h3>El servidor MCP de Google Analytics llegó a la 1.0</h3>
+<p>El servidor MCP oficial de Google Analytics liberó su versión 1.0.0, con acceso multiusuario hosteado vía HTTP multi-tenant y OAuth 2.1. Se puede desplegar una sola vez en Cloud Run y compartir por URL: cada persona inicia sesión con su propia cuenta de Google y mantiene sus propios permisos de GA.</p>
+<p>Para los que empezamos a usar asistentes de IA para consultar datos de Analytics, esto baja bastante la fricción: en lugar de que cada uno configure su conexión local, un equipo puede compartir un mismo endpoint respetando los permisos individuales.</p>
+<div class="accion"><p><strong>Qué hacer:</strong> Si tu equipo o tus clientes están explorando consultar GA con IA, evaluá montar el MCP server en Cloud Run en lugar de setups locales por persona. Mantené el control de permisos a nivel de cuenta de Google.</p></div>
+<p class="fuentes">Fuente: <a href="https://digitalanalyticspills.substack.com/p/dap-045-new-gtm-snippet-ga4-keyed">Digital Analytics Pills</a></p>
+
+<h2>🛠️ Técnico y tutoriales</h2>
+
+<h3>Los agentes de IA ya empiezan a ensuciar la analítica</h3>
+<p>Un experimento de una semana de 33 Sticks probando el agente Muse de Meta encontró algo para tener en el radar: estos "compradores" de IA corren navegadores reales y pueden parecer visitantes Directos muy comprometidos. Eso puede distorsionar métricas de conversión, tasas de abandono y, sobre todo, resultados de tests A/B.</p>
+<p>La buena noticia es que, por ahora, el volumen de agentes es todavía mínimo. Pero conviene ir preparando el terreno: señales de detección, etiquetado en los logs, segmentos de monitoreo y poner los datos clave en texto visible de la página para que los agentes los lean.</p>
+<div class="accion"><p><strong>Qué hacer:</strong> Todavía no hace falta alarmarse, pero empezá a mirar tus segmentos de tráfico Directo con sesiones sospechosamente "perfectas". Si corrés tests A/B importantes, tené en cuenta que este ruido puede crecer y conviene armar un segmento de monitoreo desde ahora.</p></div>
+<p class="fuentes">Fuente: <a href="https://www.33sticks.com/articles/before-it-was-people-and-bots-now-its-people-bots-and-agents">33 Sticks</a></p>
+
+<h2>📄 También en el radar</h2>
+<ul>
+<li>BigQuery sumó <code>AI.AGG</code>, una función que agrupa filas (incluido texto, imágenes, PDFs, audio y video) y las manda a Gemini para devolver una respuesta por grupo. Ojo con costos y límites (unos 1.000 grupos recomendados y tope de 10.000 tokens de salida por grupo). <a href="https://digitalanalyticspills.substack.com/p/dap-045-new-gtm-snippet-ga4-keyed">Vía Digital Analytics Pills</a>.</li>
+<li>Google está llevando las funciones de BigQuery AI (forecasting, predicciones y embeddings) a los DataFrames de pandas vía BigFrames, para quienes trabajan datos en Python. <a href="https://digitalanalyticspills.substack.com/p/dap-045-new-gtm-snippet-ga4-keyed">Vía Digital Analytics Pills</a>.</li>
+</ul>
+
+<h2>En resumen</h2>
+<p>La semana dejó dos cambios que conviene accionar ya: el nuevo snippet de GTM (cuidado con el dataLayer renombrado) y el Data Manager de GA4, donde hay que evitar duplicar conversiones. En el horizonte cercano, marcá en el calendario el 11 de enero: el server-side GTM va a cambiar cómo maneja las IP para los tags de Google Ads, y mejor llegar a esa fecha con la decisión tomada y documentada. Si querés que revisemos tu setup, escribime.</p>
+<p class="post-nota">Este resumen se arma cada semana con fuentes oficiales de Google y medios especializados. Los enlaces llevan a la fuente original.</p>
+<p><a href="/blog/">← Ver todas las ediciones</a></p>
+</article></div></section>
+<section><div class="wrap"><p class="eyebrow">Ediciones anteriores</p><h2 class="title">Seguí leyendo</h2><div class="related"><a href="/blog/google-ads-2026-11-11/"><b>Novedades de Google Ads: Demand Gen y anuncios en AI Mode</b><span>Google Ads · 11 nov 2026</span></a><a href="/blog/analytics-2026-11-06/"><b>Novedades de Analytics y GTM: IP en server-side y GA4 con IA</b><span>Analytics y GTM · 6 nov 2026</span></a><a href="/blog/que-es-ai-mode-google/"><b>Qué es el AI Mode de Google y qué significa para tus anuncios</b><span>Google Ads · 4 nov 2026</span></a></div></div></section>
+<section class="alt"><div class="wrap blog-cta">
+  <div><p class="eyebrow">¿Tu medición está al día?</p>
+  <h2 class="title">Revisemos tu cuenta y tu tracking</h2>
+  <p class="lead">Si alguna de estas novedades te afecta y no sabés por dónde empezar, contame qué usás y lo vemos.</p></div>
+  <div class="cta-row"><a href="/contacto/" class="btn primary">Contactar <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</div></section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="/"><svg viewBox="0 0 120 120" width="34" height="34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="lg-foot" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1E4FD8"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs><rect width="120" height="120" rx="28" fill="url(#lg-foot)"/><text x="60" y="63" text-anchor="middle" dominant-baseline="central" font-family="Sora,Arial,sans-serif" font-weight="600" font-size="52" letter-spacing="-2" fill="#fff">VB</text></svg><span><span class="nm">Victor Bogado</span><span class="rl">TRACKING · GOOGLE ADS</span></span></a>
+        <p>Consultor de medición y Google Ads. Implemento tracking server-side con Stape para que tus campañas optimicen con datos completos.</p>
+      </div>
+      <div><h2>Servicios</h2><ul><li><a href="/gtm-server-side/">GTM Server-Side</a></li><li><a href="/stape/">Implementación de Stape</a></li><li><a href="/api-conversiones-meta/">API de Conversiones de Meta</a></li><li><a href="/conversiones-mejoradas/">Conversiones mejoradas</a></li><li><a href="/google-tag-manager/">Google Tag Manager</a></li><li><a href="/google-analytics-4/">Google Analytics 4</a></li><li><a href="/google-ads/">Google Ads</a></li></ul></div>
+      <div><h2>Contacto</h2><ul>
+        <li><a href="/contacto/">Formulario de contacto</a></li>
+        <li><a href="/blog/">Blog: novedades semanales</a></li>
+        <li><span style="font-family:var(--font-mono);font-size:13.5px;color:var(--muted)">contacto@victorbogado.cloud</span></li>
+      </ul></div>
+    </div>
+    <div class="fbottom"><span>© 2026 Victor Bogado</span><span>GTM Server-Side · Stape · Google Ads · GA4</span></div>
+  </div>
+</footer>
+<script src="/assets/main.js" defer></script>
+</body>
+</html>

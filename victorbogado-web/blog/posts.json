@@ -1,5 +1,13 @@
 [
  {
+  "slug": "analytics-2026-11-13",
+  "titulo": "Novedades de Analytics y GTM: nuevo snippet y Data Manager en GA4",
+  "descripcion": "Cambió el snippet por defecto de GTM, GA4 estrena Data Manager y métricas server-to-server, y el MCP de Analytics llega a la versión 1.0. Qué cambia y qué hacer.",
+  "categoria": "Analytics y GTM",
+  "fecha": "2026-11-13",
+  "minutos": 7
+ },
+ {
   "slug": "google-ads-2026-11-11",
   "titulo": "Novedades de Google Ads: Demand Gen y anuncios en AI Mode",
   "descripcion": "Esta semana en Google Ads: cambio de API en Demand Gen desde el 1/12, nuevos terminos pay-per-lead y anuncios multiturno en AI Mode. Que hacer en cada caso.",
