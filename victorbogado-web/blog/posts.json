@@ -1,5 +1,13 @@
 [
  {
+  "slug": "google-ads-2026-11-18",
+  "titulo": "Novedades de Google Ads: tráfico inválido visible y AI Max por defecto",
+  "descripcion": "Google muestra cuánto tráfico inválido bloquea y reembolsa, el Editor 2.14 activa AI Max por defecto y llega una tarjeta de Customer Journey. Qué cambia y qué hacer.",
+  "categoria": "Google Ads",
+  "fecha": "2026-11-18",
+  "minutos": 5
+ },
+ {
   "slug": "analytics-2026-11-13",
   "titulo": "Novedades de Analytics y GTM: nuevo snippet y Data Manager en GA4",
   "descripcion": "Cambió el snippet por defecto de GTM, GA4 estrena Data Manager y métricas server-to-server, y el MCP de Analytics llega a la versión 1.0. Qué cambia y qué hacer.",
