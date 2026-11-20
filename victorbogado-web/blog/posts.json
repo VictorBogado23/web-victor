@@ -1,5 +1,13 @@
 [
  {
+  "slug": "analytics-2026-11-20",
+  "titulo": "Novedades de Analytics y GTM: unificacion de Google Tag y enero 2027",
+  "descripcion": "Google convierte cada Google Tag en un contenedor de GTM, con fecha limite en enero 2027 para los setups no soportados. Mas GA4, consentimiento y server-side.",
+  "categoria": "Analytics y GTM",
+  "fecha": "2026-11-20",
+  "minutos": 5
+ },
+ {
   "slug": "google-ads-2026-11-18",
   "titulo": "Novedades de Google Ads: tráfico inválido visible y AI Max por defecto",
   "descripcion": "Google muestra cuánto tráfico inválido bloquea y reembolsa, el Editor 2.14 activa AI Max por defecto y llega una tarjeta de Customer Journey. Qué cambia y qué hacer.",
