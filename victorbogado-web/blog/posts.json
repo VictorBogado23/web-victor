@@ -1,5 +1,13 @@
 [
  {
+  "slug": "google-ads-2026-11-25",
+  "titulo": "Novedades de Google Ads: Demand Gen Drop y Google tag en Tag Manager",
+  "descripcion": "El Demand Gen Drop de noviembre, la unificacion del Google tag con Tag Manager y nuevos controles en Performance Max: lo que cambio esta semana en Google Ads.",
+  "categoria": "Google Ads",
+  "fecha": "2026-11-25",
+  "minutos": 5
+ },
+ {
   "slug": "analytics-2026-11-20",
   "titulo": "Novedades de Analytics y GTM: unificacion de Google Tag y enero 2027",
   "descripcion": "Google convierte cada Google Tag en un contenedor de GTM, con fecha limite en enero 2027 para los setups no soportados. Mas GA4, consentimiento y server-side.",
