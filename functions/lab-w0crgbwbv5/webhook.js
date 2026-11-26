@@ -1,9 +1,8 @@
 // Endpoint servidor-a-servidor del laboratorio: arma y envía el webhook order_paid al sGTM,
 // igual que hace el plugin "GTM Server Side" de Stape en WooCommerce.
-// Sólo POST, protegido por la cookie de acceso y un nonce (double submit).
+// Sólo POST, protegido por un nonce (double submit), control de origen y límite de envíos.
 
 const BASE = '/lab-w0crgbwbv5/';
-const COOKIE_ACCESO = 'vb_lab';
 const COOKIE_NONCE = 'vb_lab_nonce';
 const URL_WEBHOOK_POR_DEFECTO = 'https://gvixggkx.usu.stape.io/webhook';
 const VERSION_PLUGIN = '2.3.12';
@@ -40,12 +39,6 @@ function igualSeguro(a, b) {
   return dif === 0;
 }
 
-async function derivarToken(clave) {
-  const datos = new TextEncoder().encode(clave + '|vb-lab-v1');
-  const hash = await crypto.subtle.digest('SHA-256', datos);
-  return [...new Uint8Array(hash)].map((b) => b.toString(16).padStart(2, '0')).join('');
-}
-
 function json(cuerpo, status) {
   return new Response(JSON.stringify(cuerpo), {
     status: status || 200,
@@ -70,30 +63,23 @@ export async function onRequest(context) {
   // Sólo POST. Cualquier otro método no revela que la ruta exista.
   if (request.method !== 'POST') return noEncontrado();
 
-  const clave = env.LAB_KEY;
-  if (!clave) return noEncontrado();
-
   const cookies = leerCookies(request);
-  const token = await derivarToken(clave);
 
-  // 1) Cookie de acceso.
-  if (!igualSeguro(cookies[COOKIE_ACCESO] || '', token)) return noEncontrado();
-
-  // 2) Nonce: la cabecera tiene que coincidir con la cookie emitida al pintar la página.
+  // 1) Nonce: la cabecera tiene que coincidir con la cookie emitida al pintar la página.
   const nonceCabecera = request.headers.get('x-lab-nonce') || '';
   const nonceCookie = cookies[COOKIE_NONCE] || '';
   if (!nonceCookie || !igualSeguro(nonceCabecera, nonceCookie)) {
     return json({ ok: false, error: 'Nonce inválido o ausente.' }, 403);
   }
 
-  // 3) Mismo origen.
+  // 2) Mismo origen.
   const origen = request.headers.get('origin');
   const propio = new URL(request.url).origin;
   if (origen && origen !== propio) {
     return json({ ok: false, error: 'Origen no permitido.' }, 403);
   }
 
-  // 4) Límite de envíos.
+  // 3) Límite de envíos.
   const ahora = Date.now();
   ventana = ventana.filter((t) => ahora - t < 3600000);
   if (ventana.length >= LIMITE_POR_HORA) {

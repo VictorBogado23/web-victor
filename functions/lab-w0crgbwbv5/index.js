@@ -1,37 +1,9 @@
-// Laboratorio oculto: simula el front de WooCommerce + plugin "GTM Server Side" de Stape.
-// Sirve la página sólo con clave válida o cookie de acceso. Sin eso devuelve 404 sin cargar GTM.
-// La clave vive en la variable de entorno LAB_KEY, nunca en el repo.
+// Laboratorio: simula el front de WooCommerce + plugin "GTM Server Side" de Stape.
+// URL fija, sin clave ni cookie de acceso: se le pueden sumar utm_* y cualquier otro parámetro.
+// Sigue oculto: fuera de menús y del sitemap, con noindex por meta y por cabecera.
 
 const BASE = '/lab-w0crgbwbv5/';
-const COOKIE_ACCESO = 'vb_lab';
 const COOKIE_NONCE = 'vb_lab_nonce';
-const HORAS_SESION = 8;
-
-// Lee una cookie del request.
-function leerCookie(request, nombre) {
-  const crudo = request.headers.get('cookie') || '';
-  for (const parte of crudo.split(';')) {
-    const i = parte.indexOf('=');
-    if (i === -1) continue;
-    if (parte.slice(0, i).trim() === nombre) return parte.slice(i + 1).trim();
-  }
-  return null;
-}
-
-// Comparación en tiempo constante, para no filtrar la clave por tiempos de respuesta.
-function igualSeguro(a, b) {
-  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
-  let dif = 0;
-  for (let i = 0; i < a.length; i++) dif |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  return dif === 0;
-}
-
-// Token de sesión derivado de la clave: así la clave en sí no viaja en la cookie.
-async function derivarToken(clave) {
-  const datos = new TextEncoder().encode(clave + '|vb-lab-v1');
-  const hash = await crypto.subtle.digest('SHA-256', datos);
-  return [...new Uint8Array(hash)].map((b) => b.toString(16).padStart(2, '0')).join('');
-}
 
 function hexAleatorio(bytes) {
   const buf = new Uint8Array(bytes);
@@ -39,7 +11,7 @@ function hexAleatorio(bytes) {
   return [...buf].map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-// 404 mínimo: sin GTM, sin dataLayer, sin pistas de que la ruta existe.
+// 404 mínimo para los métodos que no sean GET.
 function noEncontrado() {
   return new Response(
     '<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>404</title>' +
@@ -57,36 +29,22 @@ function noEncontrado() {
 }
 
 export async function onRequestGet(context) {
-  const { request, env } = context;
-  const url = new URL(request.url);
-  const clave = env.LAB_KEY;
+  const url = new URL(context.request.url);
 
-  // Sin clave configurada en el entorno, la ruta no existe.
-  if (!clave) return noEncontrado();
-
-  const token = await derivarToken(clave);
-  const k = url.searchParams.get('k');
-
-  // Entrada con ?k=<CLAVE>: valida, deja cookie de acceso y redirige sin la clave.
-  if (k !== null) {
-    if (!igualSeguro(k, clave)) return noEncontrado();
-
+  // Compatibilidad con los links viejos que traían ?k=: se quita y se redirige,
+  // para que la clave no quede registrada en Analytics. Se conservan los utm_* y demás.
+  if (url.searchParams.has('k')) {
     const destino = new URL(url.toString());
-    destino.searchParams.delete('k'); // se conservan los utm_* y demás parámetros
-    const cabeceras = new Headers({
-      location: destino.pathname + destino.search,
-      'x-robots-tag': 'noindex, nofollow',
-      'cache-control': 'no-store',
+    destino.searchParams.delete('k');
+    return new Response(null, {
+      status: 302,
+      headers: {
+        location: destino.pathname + destino.search,
+        'x-robots-tag': 'noindex, nofollow',
+        'cache-control': 'no-store',
+      },
     });
-    cabeceras.append(
-      'set-cookie',
-      COOKIE_ACCESO + '=' + token + '; Path=' + BASE + '; HttpOnly; Secure; SameSite=Lax; Max-Age=' + HORAS_SESION * 3600
-    );
-    return new Response(null, { status: 302, headers: cabeceras });
   }
-
-  // Sin clave: hace falta la cookie de acceso.
-  if (!igualSeguro(leerCookie(request, COOKIE_ACCESO) || '', token)) return noEncontrado();
 
   // Nonce nuevo por carga de página, para el CSRF del endpoint (double submit).
   const nonce = hexAleatorio(16);
@@ -98,7 +56,7 @@ export async function onRequestGet(context) {
   });
   cabeceras.append(
     'set-cookie',
-    COOKIE_NONCE + '=' + nonce + '; Path=' + BASE + '; HttpOnly; Secure; SameSite=Strict; Max-Age=7200'
+    COOKIE_NONCE + '=' + nonce + '; Path=' + BASE + '; HttpOnly; Secure; SameSite=Lax; Max-Age=7200'
   );
 
   return new Response(paginaHtml(nonce), { status: 200, headers: cabeceras });
