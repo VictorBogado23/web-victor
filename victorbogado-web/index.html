@@ -233,6 +233,15 @@
 @media(max-width:480px){.tracking-map{padding:14px}.map-code{display:none}.tracking-hero{padding-block:44px 56px}}
 @media(prefers-reduced-motion:reduce){.map-link i{animation:none;display:none}}
 </style>
+<style>
+.tech-marquee .wrap{display:block;overflow:hidden;padding-block:22px;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.tech-track{display:flex;width:max-content;animation:tech-scroll 26s linear infinite}
+.tech-group{display:flex;align-items:center;justify-content:space-around;gap:clamp(32px,5vw,72px);padding-inline:clamp(16px,2.5vw,36px);min-width:max(50vw,680px);flex-shrink:0;box-sizing:border-box}
+.tech-group .tool{white-space:nowrap}
+.tech-marquee:hover .tech-track,.tech-marquee:focus-within .tech-track{animation-play-state:paused}
+@keyframes tech-scroll{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.tech-marquee .wrap{mask-image:none}.tech-track{animation:none;width:100%}.tech-group{min-width:0;width:100%;flex-wrap:wrap;gap:16px 32px}.tech-group[aria-hidden]{display:none}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -279,11 +288,7 @@
     </figure>
   </div>
 </header>
-<div class="stack"><div class="wrap">
-  <span class="lbl">Especializado en</span>
-  <span class="tool">GTM Server-Side</span><span class="tool">Stape</span><span class="tool">Google Tag Manager</span>
-  <span class="tool">GA4</span><span class="tool">Google Ads</span><span class="tool">Meta CAPI</span>
-</div></div>
+<div class="stack tech-marquee" role="region" aria-label="Tecnologías"><div class="wrap"><div class="tech-track"><div class="tech-group"><span class="tool">GTM Server-Side</span><span class="tool">Stape</span><span class="tool">Google Tag Manager</span><span class="tool">GA4</span><span class="tool">Google Ads</span><span class="tool">Meta CAPI</span></div><div class="tech-group" aria-hidden="true"><span class="tool">GTM Server-Side</span><span class="tool">Stape</span><span class="tool">Google Tag Manager</span><span class="tool">GA4</span><span class="tool">Google Ads</span><span class="tool">Meta CAPI</span></div></div></div></div>
 
 <section aria-labelledby="prob-t"><div class="wrap">
   <p class="eyebrow">El problema</p>
