@@ -206,6 +206,33 @@
  ]
 }
 </script>
+<style>
+/* Home: tracking architecture */
+.tracking-hero{isolation:isolate;padding-block:92px 100px}
+.tracking-hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:48px 48px;opacity:.22;mask-image:linear-gradient(90deg,transparent,#000)}
+.tracking-hero .wrap{grid-template-columns:1.08fr .92fr;gap:clamp(24px,5vw,72px)}
+.tracking-hero h1{font-size:clamp(34px,4.7vw,58px);line-height:1.1}
+.tracking-map{margin:0;min-width:0;padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-lg);position:relative}
+.tracking-map figcaption{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:20px;text-transform:uppercase;letter-spacing:.05em}
+.tracking-map figcaption small{margin-left:auto;font-size:10px;text-transform:none;letter-spacing:0}
+.map-dot{width:8px;height:8px;background:var(--vb-cyan);border-radius:50%;box-shadow:0 0 10px var(--vb-cyan)}
+.map-node{display:flex;align-items:center;gap:12px;min-width:0;padding:14px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
+.map-node>div{flex:1;min-width:0}
+.map-node strong{display:block;font-family:var(--font-display);font-size:14px;line-height:1.4}
+.map-node>div>span{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+.map-index{font-family:var(--font-mono);font-size:11px;color:var(--accent);background:var(--accent-soft);border-radius:8px;padding:8px;flex:none}
+.map-code{font-family:var(--font-mono);font-size:10px;color:var(--muted)}
+.map-core{border-color:var(--accent);box-shadow:0 0 20px rgba(59,130,246,.12)}
+.map-link{height:22px;width:2px;margin:auto;background:var(--line);position:relative;overflow:hidden}
+.map-link i{position:absolute;left:0;top:0;width:2px;height:10px;background:var(--vb-cyan);box-shadow:0 0 6px var(--vb-cyan);animation:vb-signal-flow 2.6s ease-in-out 2 both}
+.map-link:nth-of-type(4) i{animation-delay:.35s}
+.map-link:nth-of-type(6) i{animation-delay:.7s}
+.tracking-map .dests{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+@keyframes vb-signal-flow{0%{transform:translateY(-12px);opacity:0}25%{opacity:1}80%{opacity:1}100%{transform:translateY(24px);opacity:0}}
+@media(max-width:880px){.tracking-hero .wrap{grid-template-columns:1fr}.tracking-hero{padding-block:60px 72px}}
+@media(max-width:480px){.tracking-map{padding:14px}.map-code{display:none}.tracking-hero{padding-block:44px 56px}}
+@media(prefers-reduced-motion:reduce){.map-link i{animation:none;display:none}}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -228,26 +255,28 @@
   </div>
 </nav>
 <main id="main">
-<header class="hero">
+<header class="hero tracking-hero">
   <div class="wrap">
-    <div>
-      <p class="eyebrow">GTM Server-Side · Stape · Google Ads</p>
-      <h1>Tracking server-side para que tus campañas <span class="hl">midan todo</span></h1>
-      <p class="sub">Implemento Google Tag Manager del lado del servidor con Stape y gestiono campañas de Google Ads. Recuperás conversiones que hoy bloquean los navegadores y las plataformas optimizan con datos completos.</p>
+    <div class="tracking-copy">
+      <p class="eyebrow">Tracking · Performance · Datos</p>
+      <h1>El tracking no termina cuando <span class="hl">se dispara una conversión.</span></h1>
+      <p class="sub">Conecto los datos de tus campañas con los resultados reales de tu negocio mediante soluciones de tracking server-side, integración de CRM y medición avanzada.</p>
       <div class="cta-row">
-        <a href="#contacto" class="btn primary">Solicitar diagnóstico <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a href="/gtm-server-side/" class="btn ghost">Cómo funciona el server-side</a>
+        <a href="#contacto" class="btn primary">Mejorar mi medición <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#servicios" class="btn ghost">Conocer las soluciones</a>
       </div>
     </div>
-    <div class="flow" aria-label="Cómo viaja un evento con tracking server-side">
-  <div class="fh"><span class="dot"></span> Cómo viaja un evento</div>
-  <ol>
-    <li><span class="n">01</span><div><b>Tu sitio</b><span>El navegador envía un solo evento a tu subdominio, por ejemplo data.tuempresa.com</span></div></li>
-    <li><span class="n">02</span><div><b>Servidor GTM en Stape</b><span>Se validan, limpian y completan los datos antes de salir</span></div></li>
-    <li><span class="n">03</span><div><b>Plataformas</b><span>Cada destino recibe sólo lo que necesita</span></div></li>
-  </ol>
-  <div class="dests"><span class="tag">GA4</span><span class="tag">Google Ads</span><span class="tag">Meta CAPI</span><span class="tag">TikTok</span></div>
-</div>
+    <figure class="tracking-map" aria-labelledby="tracking-map-title">
+      <figcaption id="tracking-map-title"><span class="map-dot" aria-hidden="true"></span> Arquitectura de medición <small>Flujo conceptual</small></figcaption>
+      <div class="map-node"><span class="map-index">01</span><div><strong>Captura de eventos</strong><span>Web · Formularios · WhatsApp</span></div><span class="map-code" aria-hidden="true">EVENT</span></div>
+      <div class="map-link" aria-hidden="true"><i></i></div>
+      <div class="map-node map-core"><span class="map-index">02</span><div><strong>Procesamiento server-side</strong><span>GTM · Stape · Validación de datos</span></div><span class="map-code" aria-hidden="true">DATA</span></div>
+      <div class="map-link" aria-hidden="true"><i></i></div>
+      <div class="map-node"><span class="map-index">03</span><div><strong>Integración con CRM</strong><span>Leads · Oportunidades · Ventas</span></div><span class="map-code" aria-hidden="true">CRM</span></div>
+      <div class="map-link" aria-hidden="true"><i></i></div>
+      <div class="map-node"><span class="map-index">04</span><div><strong>Activación de señales</strong><span>Conversiones según cada destino</span></div></div>
+      <div class="dests"><span class="tag">Google Ads</span><span class="tag">Meta CAPI</span><span class="tag">GA4</span></div>
+    </figure>
   </div>
 </header>
 <div class="stack"><div class="wrap">
