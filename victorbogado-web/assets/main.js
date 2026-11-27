@@ -27,6 +27,13 @@
     });
   }
 
+  var services = document.querySelector('.nav-services');
+  if (services) {
+    document.addEventListener('click', function(e){ if (!services.contains(e.target)) services.open = false; });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && services.open) { services.open = false; services.querySelector('summary').focus(); } });
+    services.addEventListener('click', function(e){ if (e.target.closest('a')) services.open = false; });
+  }
+
   // ---------- Formulario: Formspree + dataLayer ----------
   window.dataLayer = window.dataLayer || [];
   var FORMSPREE = 'https://formspree.io/f/mqpepryq';
