@@ -79,7 +79,7 @@ h2.title{font-size:clamp(26px,4.2vw,38px);font-weight:600;margin:0 0 16px;line-h
   border-radius:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}
 .icon-btn:hover{color:var(--accent);border-color:var(--accent)}
 .menu-btn{display:none}
-@media(max-width:1180px){
+@media(max-width:760px){
   .menu-btn{display:flex}
   .nav-links{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;
     background:var(--surface);border-bottom:1px solid var(--line);padding:8px 22px 18px;box-shadow:var(--shadow)}
@@ -301,3 +301,19 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding-block:
 .post-nota{font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;margin-top:40px}
 .blog-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px}
 .blog-cta .lead{max-width:56ch}
+
+/* Shared service navigation */
+.nav-links{gap:28px;margin-left:auto;margin-right:16px}
+.nav-links>a,.nav-services summary{white-space:nowrap}
+.nav-services{position:relative}
+.nav-services summary{list-style:none;cursor:pointer;color:var(--muted);font-size:14px;font-weight:500;display:flex;align-items:center;gap:7px;padding:12px 0}
+.nav-services summary::-webkit-details-marker{display:none}
+.nav-services summary:hover,.nav-services[open] summary{color:var(--txt)}
+.nav-services summary svg{transition:transform .2s}
+.nav-services[open] summary svg{transform:rotate(180deg)}
+.nav-services-panel{position:absolute;top:100%;left:0;width:320px;max-width:calc(100vw - 40px);padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);z-index:100}
+.nav-services-panel a{display:block;padding:10px 12px;border-radius:7px;white-space:normal}
+.nav-services-panel a:hover,.nav-services-panel a:focus-visible{background:var(--surface-2)}
+.nav-services-panel strong{display:block;color:var(--txt);font-size:14px;font-weight:600}
+.nav-services-panel small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+@media(max-width:760px){.nav-links{gap:0;margin:0;max-height:calc(100dvh - 68px);overflow:auto}.nav-services summary{font-size:15px;border-bottom:1px solid var(--line)}.nav-services-panel{position:static;width:auto;max-width:none;box-shadow:none;border:0;padding:4px 0 4px 12px}.nav-services-panel a{padding:10px 8px}.nav-services-panel a:last-child{border-bottom:0}}
